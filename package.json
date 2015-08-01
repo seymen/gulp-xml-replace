@@ -1,0 +1,40 @@
+{
+  "name": "gulp-xml-replace",
+  "version": "0.1.0",
+  "description": "gulp.js plugin to replace the values of xml elements, attributes and comments",
+  "main": "./source/index.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seymen/gulp-xml-replace.git"
+  },
+  "keywords": [
+    "gulpplugin",
+    "xml",
+    "xpath"
+  ],
+  "author": "oseymen@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/seymen/gulp-xml-replace/issues"
+  },
+  "homepage": "https://github.com/seymen/gulp-xml-replace#readme",
+  "dependencies": {
+    "gulp-util": "^3.0.6",
+    "through2": "^2.0.0",
+    "xmldom": "^0.1.19",
+    "xpath.js": "^1.0.6"
+  },
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "gulp": "^3.9.0",
+    "gulp-file": "^0.2.0",
+    "gulp-istanbul": "^0.10.0",
+    "gulp-jshint": "^1.11.2",
+    "gulp-mocha": "^2.1.3",
+    "jshint-stylish": "^2.0.1",
+    "sinon": "^1.15.4"
+  }
+}
