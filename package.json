@@ -1,6 +1,6 @@
 {
   "name": "gulp-xml-replace",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "gulp.js plugin to replace the values of xml elements, attributes and comments",
   "main": "./source/index.js",
   "scripts": {
