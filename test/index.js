@@ -135,8 +135,7 @@ describe('feature: gulp-xml-replace plugin', function() {
 		expect(error).to.be.null;
 		expect(nextFile).to.not.be.undefined;
 		expect(nextFile).to.not.be.null;
-		expect(gutilLogMethod.getCall(0).args[0]).to.be.equal(gutil.colors.blue('replacing content in folder1/file1.xml'));
-		expect(gutilLogMethod.getCall(1).args[0]).to.be.equal(gutil.colors.yellow('couldn\'t resolve replacement xpath /root/x in folder1/file1.xml'));
+		expect(gutilLogMethod.getCall(0).args[0]).to.be.equal(gutil.colors.yellow('couldn\'t resolve replacement xpath /root/x in folder1/file1.xml'));
 		expect(nextFile.contents.toString('utf8')).to.be.equal(fileContents);
 
 		done();
@@ -166,7 +165,7 @@ describe('feature: gulp-xml-replace plugin', function() {
 		expect(error).to.be.null;
 		expect(nextFile).to.not.be.undefined;
 		expect(nextFile).to.not.be.null;
-		expect(gutilLogMethod.getCall(0).args[0]).to.be.equal(gutil.colors.blue('replacing content in folder1/file1.xml'));
+		expect(gutilLogMethod.getCall(0).args[0]).to.be.equal(gutil.colors.green('replaced content in folder1/file1.xml'));
 		expect(nextFile.contents.toString('utf8')).to.be.equal(expectedContents);
 
 		done();
@@ -196,7 +195,7 @@ describe('feature: gulp-xml-replace plugin', function() {
 		expect(error).to.be.null;
 		expect(nextFile).to.not.be.undefined;
 		expect(nextFile).to.not.be.null;
-		expect(gutilLogMethod.getCall(0).args[0]).to.be.equal(gutil.colors.blue('replacing content in folder1/file1.xml'));
+		expect(gutilLogMethod.getCall(0).args[0]).to.be.equal(gutil.colors.green('replaced content in folder1/file1.xml'));
 		expect(nextFile.contents.toString('utf8')).to.be.equal(expectedContents);
 
 		done();
@@ -236,8 +235,8 @@ describe('feature: gulp-xml-replace plugin', function() {
 		expect(error).to.be.null;
 		expect(nextFile).to.not.be.undefined;
 		expect(nextFile).to.not.be.null;
-		expect(gutilLogMethod.getCall(0).args[0]).to.be.equal(gutil.colors.blue('replacing content in folder1/file1.xml'));
-		expect(gutilLogMethod.getCall(1).args[0]).to.be.equal(gutil.colors.yellow('couldn\'t resolve replacement xpath /notexist in folder1/file1.xml'));
+		expect(gutilLogMethod.getCall(0).args[0]).to.be.equal(gutil.colors.yellow('couldn\'t resolve replacement xpath /notexist in folder1/file1.xml'));
+		expect(gutilLogMethod.getCall(1).args[0]).to.be.equal(gutil.colors.green('replaced content in folder1/file1.xml'));
 		expect(nextFile.contents.toString('utf8')).to.be.equal(expectedContents);
 
 		done();
@@ -259,16 +258,17 @@ describe('feature: gulp-xml-replace plugin', function() {
 
 		var error, nextFile;
 		throughObjMethod
-			.yields(vinylFile, null, function(err, file) { error = err; nextFile = file; });
+			.yields(vinylFile, null, function(err, file) { nextFile = file; });
 
-		plugin.replace(options);
+		try{
+			plugin.replace(options);	
+		} catch (e) {
+			error = e;
+		}
 
-		expect(error).to.be.null;
-		expect(nextFile).to.not.be.undefined;
-		expect(nextFile).to.not.be.null;
-		expect(gutilLogMethod.getCall(0).args[0]).to.be.equal(gutil.colors.blue('replacing content in folder1/file1.xml'));
-		expect(gutilLogMethod.getCall(1).args[0]).to.be.equal(gutil.colors.yellow('warning during xml loading: unclosed xml attribute - @#[line:undefined,col:undefined]'));
-		expect(nextFile.contents.toString('utf8')).to.be.equal(fileContents);
+		expect(error).to.be.not.null;
+		expect(error.message).to.contain('element parse error');
+		expect(nextFile).to.be.undefined;
 
 		done();
 	});
@@ -296,8 +296,7 @@ describe('feature: gulp-xml-replace plugin', function() {
 		expect(error).to.be.null;
 		expect(nextFile).to.not.be.undefined;
 		expect(nextFile).to.not.be.null;
-		expect(gutilLogMethod.getCall(0).args[0]).to.be.equal(gutil.colors.blue('replacing content in folder1/file1.xml'));
-		expect(gutilLogMethod.getCall(1).args[0]).to.be.equal(gutil.colors.yellow('couldn\'t resolve replacement xpath /root/x in folder1/file1.xml'));
+		expect(gutilLogMethod.getCall(0).args[0]).to.be.equal(gutil.colors.yellow('couldn\'t resolve replacement xpath /root/x in folder1/file1.xml'));
 		expect(nextFile.contents.toString('utf8')).to.be.equal(fileContents);
 
 		done();

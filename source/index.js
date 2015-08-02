@@ -15,8 +15,9 @@ var xmlToString = function(xml) {
 
 var domParserOptions = {
 	errorHandler: function(e) {
-		e = e.replace('\n', ' - ');
-		gutil.log(gutil.colors.yellow('warning during xml loading: ' + e));
+		e = e.replace(/\n/g, ' ')
+			.replace(/\s\s/g, ' ');
+		throw new PluginError(PLUGIN_NAME, e);
 	}
 };
 
@@ -51,8 +52,6 @@ module.exports = {
 				return;	
 			}
 
-			gutil.log(gutil.colors.blue('replacing content in ' + path));
-
 			var fileContents = file.contents.toString('utf8');
 			var fileContentsXml = new dom(domParserOptions).parseFromString(fileContents);
 
@@ -71,6 +70,7 @@ module.exports = {
 				}
 
 				file.contents = new Buffer(xmlToString(fileContentsXml));
+				gutil.log(gutil.colors.green('replaced content in ' + path));
 			});
 
 			cb(null, file);
